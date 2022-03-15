@@ -9,20 +9,23 @@
 </head>
 <body>
     <div id="app">
-        <p v-text="username"></p>
-        <p>{{age}}</p>
-        <p v-html="pp"></p>
-        <input placeholder="tips">
+        <p>{{count}}</p>
+        <button v-on:click="add(1)">+1</button>
+        <button v-on:click="decrease(1)">-1</button>
     </div>
     <script>
-        const vm=new Vue({
+        const vm =new Vue({
             el:'#app',
             data:{
-                username:'zs',
-                age:'20',
-                gender:'女',
-                pp:'<h1 style="color:red">很好</h1>',
-                tips:'请输入'
+                count:0
+            },
+            methods:{
+                add(n){
+                    this.count+=n
+                },
+                decrease(n){
+                    this.count-=n
+                }
             }
         })
     </script>
