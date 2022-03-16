@@ -15,8 +15,8 @@
                 <th>id</th>
                 <th>名字</th>
             </thead>
-            <tbody v-for="(item,index) in list">
-                <tr>
+            <tbody >
+                <tr v-for="(item,index) in list" :key="item.id">
                     <td>{{index}}</td>
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
