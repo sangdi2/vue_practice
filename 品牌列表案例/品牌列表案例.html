@@ -63,9 +63,9 @@
               <label class="custom-control-label" :for="'cb' + item.id" v-else>已禁用</label>
             </div>
           </td>
-          <td>{{item.time}}</td>
+          <td>{{item.time|cpi}}</td>
           <td>
-            <a href="javascript:;" >删除</a>
+            <a href="javascript:;" @click="remove(item.id)">删除</a>
           </td>
         </tr>
       </tbody>
@@ -73,7 +73,12 @@
   </div>
 
   <script src="./lib/vue-2.6.12.js"></script>
+  <script src="./lib/dayjs.min.js"></script>
   <script>
+    Vue.filter('cpi',function(time){
+      const str =dayjs(time).format('YYYY-MM-DD HH:mm:ss')
+      return str
+    })
      const vm = new Vue({
        el:'#app',
        data:{
@@ -81,7 +86,27 @@
            {id:1,name:'宝马',status:true,time:new Date()},
            {id:2,name:'奔驰',status:false,time:new Date()},
            {id:3,name:'奥迪',status:true,time:new Date()}
-         ]
+         ],
+         brand:'',
+         nextid:4
+       },
+       methods:{
+          remove(id){
+            this.list=this.list.filter(item=>item.id!=id)
+          },
+          add(){
+            if(this.brand=="")
+            return alert('请输入品牌')
+            const obj={
+              id:this.nextid,
+              name:this.brand,
+              status:true,
+              time:new Date()
+            }
+            this.list.push(obj);
+            this.brand='';
+            this.nextid++;
+          }
        }
      })
   </script>
