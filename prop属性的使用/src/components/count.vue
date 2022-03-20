@@ -8,7 +8,9 @@
 export default {
   props:{
     init:{
-      default:0
+      default:0,
+      type:Number,
+      required:true
     }
   },
   el:'#app',

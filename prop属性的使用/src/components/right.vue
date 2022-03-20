@@ -1,6 +1,6 @@
 <template>
   <div class="box2">right组件
-    <mycount ></mycount>
+    <mycount :init="6"></mycount>
   </div>
 </template>
 
@@ -10,6 +10,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang='less' scoped>
 
 </style>
