@@ -8,6 +8,7 @@ import Myorders from '../components/menus/MyOrders'
 import Myrights from '../components//menus/MyRights'
 import Mysetting from '../components//menus/MySettings'
 import Myusers from '../components/menus/MyUsers'
+import Userinfo from '../components/user/MyUserDetail'
 Vue.use(VueRouter)
 
 const router= new VueRouter({
@@ -19,13 +20,15 @@ const router= new VueRouter({
             {path:'right',component:Myrights},
             {path:'goods',component:Mygoods},
             {path:'orders',component:Myorders},
-            {path:'setting',component:Mysetting}
+            {path:'setting',component:Mysetting},
+            {path:"userinfo/:id",component:Userinfo,props:true}
         ],redirect:'/home/users'}
     ]
 })
 
 router.beforeEach(function(to,from,next){
-    if(to.path=='/home'){
+    const patharr=['/home','/home/users']
+    if(patharr.indexOf(to.path)!==-1){
         const token =localStorage.getItem('token')
         if(token){
             next()
