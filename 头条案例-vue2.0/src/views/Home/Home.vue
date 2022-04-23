@@ -1,7 +1,15 @@
 <template>
   <div>
       <van-nav-bar title="首页" fixed/>
-      <Aritical v-for="item in articallist" :key="item.id"></Aritical>
+      <van-list
+  v-model="loading"
+  :finished="finished"
+  finished-text="没有更多了"
+  @load="onLoad"
+>
+      <Aritical v-for="item in articallist" :key="item.id" :title="item.title" :autid="item.aut_id" :commmcount="item.comm_count"
+      :pubdate="item.pubdate" :autname="item.aut_name" :cover="item.cover"></Aritical>
+      </van-list>
   </div>
 </template>
 
@@ -13,7 +21,9 @@ export default {
      return {
        page:1,
        limit:10,
-       articallist:[]
+       articallist:[],
+       loading:true,
+       finished:false
      }
   },
     methods:{
@@ -23,7 +33,15 @@ export default {
           _limit:this.limit
         }})
         console.log(res)
-        this.articallist=res
+        this.articallist=[...this.articallist,...res]
+        this.loading=false
+        if(res.length===0){
+          this.finished=true
+        }
+      },
+      onLoad(){
+        this.page++
+        this.initaritical()
       }
     },
     created(){
